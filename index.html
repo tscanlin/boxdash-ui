@@ -27,5 +27,23 @@
         </ul>
     </div>
 
+    <div mv-app="todo2" mv-storage="https://github.com/tscanlin/boxdash-data" mv-mode="edit">
+        <header>
+            <h1>My tasks</h1>
+            <p><strong>[count(done)]</strong> done out of <strong>[count(task)]</strong> total</p>
+        </header>
+
+        <ul>
+            <li property="task" mv-multiple>
+                <label>
+                    <input property="done" type="checkbox" />
+                    <span property="taskTitle">Do stuff</span>
+                </label>
+            </li>
+            <button class="clear-completed" mv-action="delete(task where done)">Clear Completed</button>
+        </ul>
+    </div>
+
+
 </body>
 </html>
