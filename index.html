@@ -16,14 +16,14 @@
             <p><strong>[count(done)]</strong> done out of <strong>[count(task)]</strong> total</p>
         </header>
 
-        <ul>
-            <li property="task" mv-multiple>
+        <ul property="list" mv-multiple>
+            <li property="item" mv-multiple>
                 <label>
                     <input property="done" type="checkbox" />
                     <span property="taskTitle">Do stuff</span>
                 </label>
             </li>
-            <button class="clear-completed" mv-action="delete(task where done)">Clear Completed</button>
+            <!-- <button class="clear-completed" mv-action="delete(task where done)">Clear Completed</button> -->
         </ul>
     </div>
 
@@ -40,7 +40,7 @@
                     <span property="taskTitle">Do stuff</span>
                 </label>
             </li>
-            <button class="clear-completed" mv-action="delete(task where done)">Clear Completed</button>
+            <!-- <button class="clear-completed" mv-action="delete(task where done)">Clear Completed</button> -->
         </ul>
     </div>
 
