@@ -11,7 +11,7 @@
 
 <style>
     .tint-bg {
-        background-color: rgba(10, 10, 10, 0.2);
+        background-color: rgba(10, 10, 10, 0.7);
     }
 
     .note-container {
@@ -99,7 +99,24 @@
         position: fixed;
         top: 3em;
         left: 10%;
+        z-index: 2;
     }
+    .note-expand-checkbox:checked {
+        display: block !important;
+        /* visibility: hidden; */
+        opacity: 0;
+    }
+    .note-expand-checkbox:checked::after {
+        
+        display: block !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 100vw;
+        height: 100vh;
+    }
+
     .note-expand-checkbox:checked ~ .mv-item-bar {
         display: none;
     }
@@ -108,13 +125,42 @@
     }
     
     
-    .note-dropdown-checkbox:checked ~ .note-dropdown-container {
+    .note-dropdown-background-checkbox:checked ~ .note-dropdown-background-container {
         display: block !important;
-        /* width: 100%; */
-        /* height: 100%; */
-        /* position: fixed; */
-        /* top: 3em;
-        left: 0; */
+    }
+    /* backdrop to click out of dropdown */
+    .note-dropdown-background-checkbox:checked ~ .note-dropdown-background-label::after {
+        
+        display: block !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .note-dropdown-options-checkbox:checked ~ .note-dropdown-options-container {
+        display: block !important;
+    }
+    /* backdrop to click out of dropdown */
+    .note-dropdown-options-checkbox:checked ~ .note-dropdown-options-label::after {
+        display: block !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 100vh;
+        height: 100vh;
+    }
+
+    /* Remove button styling */
+    .button-link {
+        appearance: none;
+        background: transparent;
+        border: 0;
+        margin: 2px 0;
+        padding: 2px 0;
     }
 
 </style>
@@ -131,35 +177,54 @@
             <div class="note-container dib v-top mr2 mb2" property="notes" mv-multiple>
                 <input id="note-expand-[$index]" class="note-expand-checkbox dn" type="checkbox" />
                 
-                <div class="note-content relative pv3 ph2 ba b--silver br2 z-1 expand-[noteExpand]">
+                <div class="note-content relative pv3 ph2 ba b--silver br2 z-1 expand-[noteExpand]" style="background-color: #EEE">
                     
                     <h4 property="noteTitle" class="ma0 mb2">Title</h4>
                     <label for="note-expand-[$index]" class="note-expand-label db absolute top-0 right-0 pa1 ph2">expand</label>
 
-                    <div class="" property="listItem" mv-multiple style="padding: 2px 0;">
-                        <div class="w-100">
-                            <input property="itemDone" type="checkbox" class="dib v-top relative" style="top: 3px" />
-                            <div property="itemTitle" class="tinymce dib ml1" style="width: 90%">Add note here</div>
+                    <div mv-if="showCheckboxes = true">
+                        <div class="" property="listItem" mv-multiple style="padding: 2px 0;">
+                            <div class="w-100">
+                                <input property="itemDone" type="checkbox" class="dib v-top relative" style="top: 3px" />
+                                <div property="itemTitle" class="tinymce dib ml1" style="width: calc(100% - 25px)">Add note here</div>
+                            </div>
                         </div>
                     </div>
                     
-                    <input id="note-dropdown-[$index]" class="note-dropdown-checkbox dn" type="checkbox" />
-                    <label for="note-dropdown-[$index]" class="note-dropdown-label db">
-                        options
-                    </label>
-                    <div class="note-dropdown-container tint-bg nl2 nr2 dn">
-                        <button>toggle checkboxes</button>
-                        <button>delete checked items</button>
-                        <button>uncheck all items</button>
-                        <button>delete note</button>
+                    <div class="overflow-hidden" style="height: [if(showCheckboxes = true, 0, auto)]">
+                        <div property="noteBody" class="tinymce">Add note here</div>
+                    </div>
+                    
+                    <br />
+
+                    <div class="relative tr nb2">
+                        <div class="">
+                            <input id="note-dropdown-background-[$index]" class="note-dropdown-background-checkbox dn" type="checkbox" />
+                            <label role="button" for="note-dropdown-background-[$index]" tabindex="0" class="note-dropdown-background-label ml2">
+                                Background
+                            </label>
+                            <div class="note-dropdown-background-container tint-bg absolute nl2 ml0 dn pa2 left-0" style="width: inherit;">
+                                <button class="button-link white">delete checked items</button>
+                                <button class="button-link white">delete note</button>
+                            </div>
+                            
+                            <input id="note-dropdown-options-[$index]" class="note-dropdown-options-checkbox dn" type="checkbox" />
+                            <label role="button" for="note-dropdown-options-[$index]" tabindex="0" class="note-dropdown-options-label ml2">
+                                Options
+                            </label>
+                            <div class="note-dropdown-options-container tint-bg absolute nl2 ml0 dn pa2 left-0" style="width: inherit;">
+                                <input class="dn" type="checkbox" property="showCheckboxes" checked="false" />
+                                <button class="button-link white" mv-if="showCheckboxes = false" mv-action="delete(listItem), set(listItem, noteBody.split('\n')), set(showCheckboxes, !showCheckboxes)">Show checkboxes</button>
+                                <button class="button-link white" mv-if="showCheckboxes = true" mv-action="log(itemTitle.join('\n')), set(noteBody, itemTitle.join('\n')), set(showCheckboxes, !showCheckboxes)">Hide checkboxes</button>
+                                <button class="button-link white">delete checked items</button>
+                                <button class="button-link white">uncheck all items</button>
+                                <button class="button-link white">delete note</button>
+                            </div>
+                        </div>
                     </div>
                     
                     <!-- <input type="hidden" property="noteExpand" />
                     <button mv-action="set(noteExpand, !noteExpand)">toggle</button> -->
-
-                    <!-- <div property="noteBody" class="tinymce">Add note here</div>
-                    <button class="" mv-action="delete(listItem), set(listItem, noteBody.split('\n'))">Set List</button>
-                    <button class="" mv-action="log(itemTitle.join('\n')), set(noteBody, itemTitle.join('\n'))">Set Content</button> -->
 
                     <!-- set(noteBody, listItem.itemTitle.join('\n')) -->
                     <!-- <button class="clear-completed" mv-action="delete(task where done)">Clear Completed</button> -->
