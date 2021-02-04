@@ -177,7 +177,7 @@
             <div class="note-container dib v-top mr2 mb2" property="notes" mv-multiple>
                 <input id="note-expand-[$index]" class="note-expand-checkbox dn" type="checkbox" />
                 
-                <div class="note-content relative pv3 ph2 ba b--silver br2 z-1 expand-[noteExpand]" style="background-color: #EEE">
+                <div class="note-content relative pv3 ph2 ba b--silver br2 z-1 expand-[noteExpand]" style="background-color: [bgColor or '#EEE']">
                     
                     <h4 property="noteTitle" class="ma0 mb2">Title</h4>
                     <label for="note-expand-[$index]" class="note-expand-label db absolute top-0 right-0 pa1 ph2">expand</label>
@@ -203,18 +203,19 @@
                             <label role="button" for="note-dropdown-background-[$index]" tabindex="0" class="note-dropdown-background-label ml2">
                                 Background
                             </label>
+                            <input type="hidden" property="bgColor">
                             <div class="note-dropdown-background-container tint-bg absolute nl2 ml0 dn pa2 left-0" style="width: inherit;">
-                                <button class="button-link white" data-value="#202125">cbg-black</button>
-                                <button class="button-link white" data-value="#5c2b27">cbg-red</button>
-                                <button class="button-link white" data-value="#614a18">cbg-orange</button>
-                                <button class="button-link white" data-value="#635d18">cbg-yellow</button>
-                                <button class="button-link white" data-value="#345921">cbg-green</button>
-                                <button class="button-link white" data-value="#16504c">cbg-teal</button>
-                                <button class="button-link white" data-value="#2d555f">cbg-blue</button>
-                                <button class="button-link white" data-value="#1e3a5c">cbg-dark-blue</button>
-                                <button class="button-link white" data-value="#42275c">cbg-purple</button>
-                                <button class="button-link white" data-value="#5b2242">cbg-pink</button>
-                                <button class="button-link white" data-value="#3c3f42">cbg-gray</button>
+                                <button class="button-link white" mv-action="set(bgColor, '#202125')" data-value="#202125">cbg-black</button>
+                                <button class="button-link white" mv-action="set(bgColor, '#5c2b27')" data-value="#5c2b27">cbg-red</button>
+                                <button class="button-link white" mv-action="set(bgColor, '#614a18')" data-value="#614a18">cbg-orange</button>
+                                <button class="button-link white" mv-action="set(bgColor, '#635d18')" data-value="#635d18">cbg-yellow</button>
+                                <button class="button-link white" mv-action="set(bgColor, '#345921')" data-value="#345921">cbg-green</button>
+                                <button class="button-link white" mv-action="set(bgColor, '#16504c')" data-value="#16504c">cbg-teal</button>
+                                <button class="button-link white" mv-action="set(bgColor, '#2d555f')" data-value="#2d555f">cbg-blue</button>
+                                <button class="button-link white" mv-action="set(bgColor, '#1e3a5c')" data-value="#1e3a5c">cbg-dark-blue</button>
+                                <button class="button-link white" mv-action="set(bgColor, '#42275c')" data-value="#42275c">cbg-purple</button>
+                                <button class="button-link white" mv-action="set(bgColor, '#5b2242')" data-value="#5b2242">cbg-pink</button>
+                                <button class="button-link white" mv-action="set(bgColor, '#3c3f42')" data-value="#3c3f42">cbg-gray</button>
                                 <!-- <button class="button-link white" data-value="#442f14">cbg-brown</button> -->
                             </div>
                             
