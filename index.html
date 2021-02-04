@@ -204,21 +204,31 @@
                                 Background
                             </label>
                             <div class="note-dropdown-background-container tint-bg absolute nl2 ml0 dn pa2 left-0" style="width: inherit;">
-                                <button class="button-link white">delete checked items</button>
-                                <button class="button-link white">delete note</button>
+                                <button class="button-link white" data-value="#202125">cbg-black</button>
+                                <button class="button-link white" data-value="#5c2b27">cbg-red</button>
+                                <button class="button-link white" data-value="#614a18">cbg-orange</button>
+                                <button class="button-link white" data-value="#635d18">cbg-yellow</button>
+                                <button class="button-link white" data-value="#345921">cbg-green</button>
+                                <button class="button-link white" data-value="#16504c">cbg-teal</button>
+                                <button class="button-link white" data-value="#2d555f">cbg-blue</button>
+                                <button class="button-link white" data-value="#1e3a5c">cbg-dark-blue</button>
+                                <button class="button-link white" data-value="#42275c">cbg-purple</button>
+                                <button class="button-link white" data-value="#5b2242">cbg-pink</button>
+                                <button class="button-link white" data-value="#3c3f42">cbg-gray</button>
+                                <!-- <button class="button-link white" data-value="#442f14">cbg-brown</button> -->
                             </div>
                             
                             <input id="note-dropdown-options-[$index]" class="note-dropdown-options-checkbox dn" type="checkbox" />
                             <label role="button" for="note-dropdown-options-[$index]" tabindex="0" class="note-dropdown-options-label ml2">
                                 Options
                             </label>
-                            <div class="note-dropdown-options-container tint-bg absolute nl2 ml0 dn pa2 left-0" style="width: inherit;">
+                            <div class="note-dropdown-options-container tl tint-bg absolute nl2 ml0 dn pa2 left-0" style="width: inherit;">
                                 <input class="dn" type="checkbox" property="showCheckboxes" checked="false" />
-                                <button class="button-link white" mv-if="showCheckboxes = false" mv-action="delete(listItem), set(listItem, noteBody.split('\n')), set(showCheckboxes, !showCheckboxes)">Show checkboxes</button>
-                                <button class="button-link white" mv-if="showCheckboxes = true" mv-action="log(itemTitle.join('\n')), set(noteBody, itemTitle.join('\n')), set(showCheckboxes, !showCheckboxes)">Hide checkboxes</button>
-                                <button class="button-link white">delete checked items</button>
-                                <button class="button-link white">uncheck all items</button>
-                                <button class="button-link white">delete note</button>
+                                <button class="button-link w-100 tl white" mv-if="showCheckboxes = false" mv-action="delete(listItem), set(listItem, noteBody.split('\n')), set(showCheckboxes, !showCheckboxes)">Show checkboxes</button>
+                                <button class="button-link w-100 tl white" mv-if="showCheckboxes = true" mv-action="log(itemTitle.join('\n')), set(noteBody, itemTitle.join('\n')), set(showCheckboxes, !showCheckboxes)">Hide checkboxes</button>
+                                <button class="button-link w-100 tl white">delete checked items</button>
+                                <button class="button-link w-100 tl white">uncheck all items</button>
+                                <button class="button-link w-100 tl white">delete note</button>
                             </div>
                         </div>
                     </div>
