@@ -53,19 +53,19 @@
         setValue: (element, value) => {
             const content = serializer.serialize(parser.parse(value));
             
-            console.log('@isHidden',  element.tinymce,element.tinymce && element.tinymce.isHidden())
-            console.log('@notDirty',element.tinymce && element.tinymce.isNotDirty, element.tinymce && element.tinymce.isDirty())
+            // console.log('@isHidden',  element.tinymce,element.tinymce && element.tinymce.isHidden())
+            // console.log('@notDirty',element.tinymce && element.tinymce.isNotDirty, element.tinymce && element.tinymce.isDirty())
 
             if (!element.tinymce) {
-                console.log('hi')
+                // console.log('hi')
                 element.innerHTML = content;
             }
             // This second part is needed because sometimes they can be in a dirty state.
             else if (element.tinymce.isHidden() || (!element.tinymce.isHidden() && element.tinymce.isNotDirty)) {
-                console.log('hi2')
+                // console.log('hi2')
                 element.tinymce.setContent(content);
             } else {
-                console.log('hi3')
+                // console.log('hi3')
             }
         }
     });
