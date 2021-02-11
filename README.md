@@ -6,6 +6,7 @@ This project aims to build basic note dashboard functionality similar to GoogleK
 [ ] other note hotkeys(enter to add new, up /down arrow keys)
 [ ] searching / filtering / tagging
 [ ] light/dark mode
+[x] responsive
 [x] background coloring
 [x] close to save
 
