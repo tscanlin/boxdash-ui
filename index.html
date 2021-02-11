@@ -37,12 +37,7 @@
         counter-reset: items;
     }
 
-    .note-container {  
-        width: 24%;
-        /* Optional */
-        position: relative;
-        box-sizing: border-box;
-    }
+   
 
     /* Just to print out numbers */
     div.note-container::before {        
@@ -57,7 +52,7 @@
     }
 
     /* Re-order items into 3 rows */
-    .note-container:nth-of-type(4n+1) { order: 1; }
+    /* .note-container:nth-of-type(4n+1) { order: 1; }
     .note-container:nth-of-type(4n+1) { order: 1; }
     
     .note-container:nth-of-type(4n+2) { order: 2; }
@@ -67,7 +62,35 @@
     .note-container:nth-of-type(4n+3) { order: 3; }
     
     .note-container:nth-of-type(4n)   { order: 4; }
-    .note-container:nth-of-type(4n)   { order: 4; }
+    .note-container:nth-of-type(4n)   { order: 4; } */
+    
+    .note-container {  
+        width: 48.5%;
+        /* Optional */
+        position: relative;
+        box-sizing: border-box;
+        flex-grow: 0;
+        flex-shrink: 0;
+        /* flex-basis: 25%; */
+    }
+
+/*  .note-container:nth-child(3n+1) { order: 1; }
+    .note-container:nth-child(3n+2) { order: 2; }
+    .note-container:nth-child(3n)   { order: 3; } */
+
+    .note-container:nth-child(2n+1) { order: 1; }
+    .note-container:nth-child(2n)   { order: 2; }
+    
+    @media (min-width: 900px) {
+        .note-container:nth-child(4n+1) { order: 1; }
+        .note-container:nth-child(4n+2) { order: 2; }
+        .note-container:nth-child(4n+3) { order: 3; }
+        .note-container:nth-child(4n)   { order: 4; }
+
+        .note-container {  
+            width: 24%; 
+        }
+    }
     
 
     /* Force new columns */
@@ -210,6 +233,57 @@
         color: white;
     }
 
+    [mv-app][mv-progress="Saving"] {
+        /* opacity: 0; */
+    }
+    [mv-app][mv-progress="Saving"] .mv-bar.mv-ui .mv-save::before {
+        opacity: .1;
+    }
+    [mv-app][mv-progress="Saving"] .mv-bar.mv-ui .mv-save::after {
+        /* content: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20viewBox%3D%220%200%20300%20100%22%3E%3Cstyle%3E%40keyframes%20grow%20{	33.3%25%20{stroke-width%3A%2050px}	from%2C%2066.6%25%2C%20to%20{%20stroke-width%3A%200}}circle%20{	animation%3A%20grow%20.6s%20infinite%20both%3B	fill%3A%20white%3B	stroke%3A%20white%3B}%3C%2Fstyle%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2222%22%20%2F%3E%3Ccircle%20cx%3D%22150%22%20cy%3D%2250%22%20r%3D%2222%22%20style%3D%22animation-delay%3A%20.2s%22%20%2F%3E%3Ccircle%20cx%3D%22250%22%20cy%3D%2250%22%20r%3D%2222%22%20style%3D%22animation-delay%3A%20.4s%22%20%2F%3E%3C%2Fsvg%3E"); */
+        /* content: 'hello' !important; */
+        position: absolute;
+        top: .5em;
+        right: .5em;
+        bottom: .5em;
+        left: .5em;
+        
+    }
+    
+    [mv-progress]::after {
+        /* Reset loading styles */
+        background-image: none;
+        background-color: red;
+        content: '';
+        backdrop-filter: none;
+        position: absolute;
+        transform: none;
+        top: 0;
+        left: 0;
+        bottom: auto;
+        width: 100%;
+        height: 1px !important;
+        line-height: 0;
+        padding-top: 0 !important;
+        padding: 0 !important;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+    }
+
+    html, body {
+        width: 100vw;
+        /* overflow-x: hidden; */
+    }
+    .mv-bar.mv-ui {
+        /* width: 80%; */
+        /* display: none; */
+    }
+    /* Hide ad note button since it cannot be styled easily */
+    .mv-ui.mv-add.mv-add-notes {
+        display: none;
+    }
+
 </style>
 </head>
 <body style="background-color: #EEE">
@@ -220,14 +294,14 @@
             <p><strong>[count(itemDone)]</strong> done out of <strong>[count(listItem)]</strong> total</p>
         </header>
 
-        <div class="notes-wrapper" style="height: 700px">
+        <div class="notes-wrapper mh1" style="min-height: 800px;">
             <div class="note-container dib v-top mr2 mb2" property="notes" mv-multiple>
                 <input id="note-expand-[$index]" class="note-expand-checkbox dn" type="checkbox" />
                 
                 <div class="note-content relative pv3 ph2 ba b--silver br2 z-1 expand-[noteExpand] [bgColor]">
                     
                     <h4 property="noteTitle" class="ma0 mb2">Title</h4>
-                    <label for="note-expand-[$index]" class="note-expand-label db absolute top-0 right-0 pa1 ph2">expand</label>
+                    <label for="note-expand-[$index]" class="note-expand-label db absolute top-0 right-0 pa1 ph2 pointer">Expand</label>
 
                     <div mv-if="showCheckboxes = true">
                         <div class="" property="listItem" mv-multiple style="padding: 2px 0;">
@@ -247,7 +321,7 @@
                     <div class="relative tr nb2">
                         <div class="">
                             <input id="note-dropdown-background-[$index]" class="note-dropdown-background-checkbox dn" type="checkbox" />
-                            <label role="button" for="note-dropdown-background-[$index]" tabindex="0" class="note-dropdown-background-label ml2">
+                            <label role="button" for="note-dropdown-background-[$index]" tabindex="0" class="note-dropdown-background-label pointer ml2">
                                 Background
                             </label>
                             <input type="hidden" property="bgColor">
@@ -267,15 +341,15 @@
                             </div>
                             
                             <input id="note-dropdown-options-[$index]" class="note-dropdown-options-checkbox dn" type="checkbox" />
-                            <label role="button" for="note-dropdown-options-[$index]" tabindex="0" class="note-dropdown-options-label ml2">
+                            <label role="button" for="note-dropdown-options-[$index]" tabindex="0" class="note-dropdown-options-label pointer ml2">
                                 Options
                             </label>
                             <div class="note-dropdown-options-container tl tint-bg absolute nl2 ml0 dn pa2 left-0" style="width: inherit;">
                                 <input class="dn" type="checkbox" property="showCheckboxes" checked="false" />
                                 <button class="button-link w-100 tl white" mv-if="showCheckboxes = false" mv-action="delete(listItem), set(listItem, noteBody.split('\n')), set(showCheckboxes, !showCheckboxes)">Show checkboxes</button>
                                 <button class="button-link w-100 tl white" mv-if="showCheckboxes = true" mv-action="log(itemTitle.join('\n')), set(noteBody, itemTitle.join('\n')), set(showCheckboxes, !showCheckboxes)">Hide checkboxes</button>
-                                <button class="button-link w-100 tl white">delete checked items</button>
-                                <button class="button-link w-100 tl white">uncheck all items</button>
+                                <button class="button-link w-100 tl white" mv-action="delete(listItem where itemDone)">delete checked items</button>
+                                <button class="button-link w-100 tl white" mv-action="set(itemDone, false)">uncheck all items</button>
                                 <button class="button-link w-100 tl white">delete note</button>
                             </div>
                         </div>
@@ -289,16 +363,17 @@
                 </div>
             </div>
         
-            <span class="note-container break"></span>            
-            <span class="note-container break"></span>
-            <span class="note-container break"></span>
+            <span class="note-container break dn-s"></span>            
+            <span class="note-container break dn-s"></span>
+            <span class="note-container break dn-s"></span>
+            <span class="note-container break dn-s"></span>
         
-            
             <!-- <span class="note-container break"></span> -->
             <!-- <span class="note-container break"></span> -->
             
         </div>
     </div>
+    <div class="mb5">hi</div>
 
     <!-- <div mv-app="todo2" mv-storage="https://github.com/tscanlin/boxdash-data" mv-mode="edit">
         <header>
