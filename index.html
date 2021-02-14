@@ -82,29 +82,14 @@
         height: 960px;
         counter-reset: items;
     }
-
-    /* Fancy flex column stuff */
-    .note-container:nth-child(2n+1) { order: 1; }
-    .note-container:nth-child(2n)   { order: 2; }
-    @media (min-width: 900px) {
-        .note-container:nth-child(4n+1) { order: 1; }
-        .note-container:nth-child(4n+2) { order: 2; }
-        .note-container:nth-child(4n+3) { order: 3; }
-        .note-container:nth-child(4n)   { order: 4; }
-
-        .note-container {  
-            width: 24%; 
-        }
+    .mv-bar.mv-ui {
+        top: 0;
+        border-radius: 0;
     }
-    /* Force new columns */
-    .break.note-container {
-        flex-basis: 100%;
-        width: 0;
-        margin: 0;
-        content: "";
-        padding: 0;
+    .mv-bar.mv-ui:not(.mv-fixed) {
+        border-radius: 0;
+        /* margi */
     }
-
 
     /* Note styles */
     .note-container {  
@@ -135,6 +120,28 @@
         opacity: 0.3;
     }
 
+    /* Fancy flex column stuff */
+    .note-container:nth-child(2n+1) { order: 1; }
+    .note-container:nth-child(2n)   { order: 2; }
+    @media (min-width: 900px) {
+        .note-container:nth-child(4n+1) { order: 1; }
+        .note-container:nth-child(4n+2) { order: 2; }
+        .note-container:nth-child(4n+3) { order: 3; }
+        .note-container:nth-child(4n)   { order: 4; }
+
+        .note-container {  
+            width: 24%; 
+        }
+    }
+    /* Force new columns */
+    .break.note-container {
+        flex-basis: 100%;
+        width: 0;
+        margin: 0;
+        content: "";
+        padding: 0;
+    }
+
     /* Note expanding */
     .note-expand-checkbox:checked ~ .note-content {
         width: 80%;
@@ -145,6 +152,18 @@
         top: 3em;
         left: 10%;
         z-index: 2;
+    }
+    /* Truncate the title so the list doesn't get too long */
+    .note-expand-checkbox:not(:checked) ~ .note-content .itemTitle {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+        float: right;
+    }
+    /* Hide extra items so the list doesn't get too long */
+    .note-expand-checkbox:not(:checked) ~ .note-content .listItem:nth-child(n + 4) {
+        display: none !important;
     }
     .note-expand-checkbox:checked {
         display: block !important;
@@ -241,24 +260,24 @@
     .mv-ui.mv-add.mv-add-notes {
         display: none;
     }
-    .line-clamp {
+    /* .line-clamp {
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;  
         overflow: hidden;
-    }
+    } */
 
 </style>
 </head>
 <body style="background-color: #EEE">
 
-    <div mv-app="todo" mv-storage="https://github.com/tscanlin/boxdash-data" mv-mode="edit" class="mh1 sans-serif">
+    <div mv-app="todo" mv-storage="https://github.com/tscanlin/boxdash-data" mv-mode="edit" class="sans-serif">
         <header>
             <h1>Git-Keep</h1>
             <p><strong>[count(itemDone)]</strong> done out of <strong>[count(listItem)]</strong> total</p>
         </header>
 
-        <div class="notes-wrapper mh1" style="min-height: 800px;">
+        <div class="notes-wrapper ml1" style="min-height: 800px;">
             <div class="note-container dib v-top mr2 mb2" property="notes" mv-multiple>
                 <input id="note-expand-[$index]" class="note-expand-checkbox dn" type="checkbox" />
                 
@@ -268,10 +287,10 @@
                     <label for="note-expand-[$index]" class="note-expand-label db absolute top-0 right-0 pa1 ph2 pointer">Expand</label>
 
                     <div mv-if="showCheckboxes = true">
-                        <div class="" property="listItem" mv-multiple style="padding: 2px 0;">
-                            <div class="w-100">
+                        <div class="listItem" property="listItem" mv-multiple class="listItem" style="padding: 2px 0;">
+                            <div class="w-100 cf">
                                 <input property="itemDone" type="checkbox" class="dib v-top relative" style="top: 3px" />
-                                <div property="itemTitle" class="tinymce dib ml1" style="width: calc(100% - 25px)">Add note here</div>
+                                <div property="itemTitle" class="itemTitle tinymce dib ml1" style="width: calc(100% - 25px)">Add note here</div>
                             </div>
                         </div>
                     </div>
