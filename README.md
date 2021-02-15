@@ -3,9 +3,10 @@
 This project aims to build basic note dashboard functionality similar to GoogleKeep.
 
 ## Features
-[ ] other note hotkeys(enter to add new, up /down arrow keys)
 [ ] searching / filtering / tagging
 [ ] light/dark mode
+[ ] other note hotkeys(enter to add new, up /down arrow keys)
+[ ] edit all mode? instead of one at a time
 [x] responsive
 [x] background coloring
 [x] close to save
