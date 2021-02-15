@@ -24,6 +24,7 @@
         border: 0;
         margin: 2px 0;
         padding: 2px 0;
+        cursor: pointer;
     }
 
     /* Color styles */
@@ -271,6 +272,54 @@
         overflow: hidden;
     } */
 
+    /* Custom buttons for list */
+    .listItem-wrapper {
+        width: 100%;
+        width: calc(100% - 3.2em);
+        margin: auto;
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] {
+        width: 100%;
+        top: 0;
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] button {
+        padding: .1em .2em;
+        min-width: 1em;
+        min-height: 1em;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        font-size: 100%;
+        background: none;
+        border-radius: 0;
+        border: 0;
+    }
+    .mv-item-bar.mv-ui button:not(:hover):not(:focus) {
+        /* box-shadow: none; */
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-add {
+        display: none;
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-drag-handle {
+        left: 0;
+        position: absolute;
+        color: inherit
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-drag-handle::before {
+        color: inherit;
+        font-size: 120%;
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-delete {
+        right: 0;
+        position: absolute;
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"][hidden] {
+        opacity: 1;
+        pointer-events: initial;
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-drag-handle:hover,
+    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-drag-handle:focus {
+        background: transparent;
+    }
+    
 </style>
 </head>
 <body style="background-color: #EEE">
@@ -292,7 +341,7 @@
 
                     <div mv-if="showCheckboxes = true">
                         <div class="listItem" property="listItem" mv-multiple class="listItem" style="padding: 2px 0;">
-                            <div class="w-100 cf">
+                            <div class="listItem-wrapper cf">
                                 <input property="itemDone" type="checkbox" class="dib v-top relative" style="top: 3px" />
                                 <div property="itemTitle" class="itemTitle tinymce dib ml1" style="width: calc(100% - 25px)">Add note here</div>
                             </div>
@@ -313,17 +362,17 @@
                             </label>
                             <input type="hidden" property="bgColor">
                             <div class="note-dropdown-background-container tint-bg absolute nl2 ml0 dn pa2 left-0" style="width: inherit;">
-                                <button class="button-link white" mv-action="set(bgColor, 'cbg-black')">cbg-black</button>
-                                <button class="button-link white" mv-action="set(bgColor, 'cbg-red')">cbg-red</button>
-                                <button class="button-link white" mv-action="set(bgColor, 'cbg-orange')">cbg-orange</button>
-                                <button class="button-link white" mv-action="set(bgColor, 'cbg-yellow')">cbg-yellow</button>
-                                <button class="button-link white" mv-action="set(bgColor, 'cbg-green')">cbg-green</button>
-                                <button class="button-link white" mv-action="set(bgColor, 'cbg-teal')">cbg-teal</button>
-                                <button class="button-link white" mv-action="set(bgColor, 'cbg-blue')">cbg-blue</button>
-                                <button class="button-link white" mv-action="set(bgColor, 'cbg-dark-blue')">cbg-dark-blue</button>
-                                <button class="button-link white" mv-action="set(bgColor, 'cbg-purple')">cbg-purple</button>
-                                <button class="button-link white" mv-action="set(bgColor, 'cbg-pink')">cbg-pink</button>
-                                <button class="button-link white" mv-action="set(bgColor, 'cbg-gray')">cbg-gray</button>
+                                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-black')">cbg-black</button>
+                                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-red')">cbg-red</button>
+                                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-orange')">cbg-orange</button>
+                                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-yellow')">cbg-yellow</button>
+                                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-green')">cbg-green</button>
+                                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-teal')">cbg-teal</button>
+                                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-blue')">cbg-blue</button>
+                                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-dark-blue')">cbg-dark-blue</button>
+                                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-purple')">cbg-purple</button>
+                                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-pink')">cbg-pink</button>
+                                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-gray')">cbg-gray</button>
                                 <!-- <button class="button-link white" data-value="#442f14">cbg-brown</button> -->
                             </div>
                             
