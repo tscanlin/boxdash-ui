@@ -105,7 +105,7 @@
     .mce-tinymce.mce-container {
         display: none;
     }
-    .note-container .tinymce p {
+    .listItem .tinymce p {
         margin: 0;
     }
     
@@ -181,6 +181,9 @@
     }
     .note-expand-checkbox:checked ~ .mv-item-bar {
         display: none;
+    }
+    .note-expand-checkbox:checked ~ .note-content {
+        z-index: 2;
     }
 
     /* Note dropdown styles */
@@ -280,7 +283,7 @@
     }
     .mv-item-bar.mv-ui[mv-rel="listItem"] {
         width: 100%;
-        top: 0;
+        top: -1px;
     }
     .mv-item-bar.mv-ui[mv-rel="listItem"] button {
         padding: .1em .2em;
@@ -305,7 +308,10 @@
     }
     .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-drag-handle::before {
         color: inherit;
-        font-size: 120%;
+        transform: scale(1.1) translate(-50%, -56%) scaleY(2);
+        position: absolute;
+        top: 50%;
+        left: 50%;
     }
     .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-delete {
         right: 0;
@@ -322,9 +328,9 @@
     
 </style>
 </head>
-<body style="background-color: #EEE">
+<body class="sans-serif" style="background-color: #EEE">
 
-    <div mv-app="todo" mv-storage="https://github.com/tscanlin/boxdash-data" mv-mode="edit" class="sans-serif">
+    <div mv-app="todo" mv-storage="https://github.com/tscanlin/boxdash-data" mv-mode="edit">
         <header>
             <h1>Git-Keep</h1>
             <p><strong>[count(itemDone)]</strong> done out of <strong>[count(listItem)]</strong> total</p>
@@ -334,7 +340,7 @@
             <div class="note-container dib v-top mr2 mb2" property="notes" mv-multiple>
                 <input id="note-expand-[$index]" class="note-expand-checkbox dn" type="checkbox" />
                 
-                <div class="note-content relative pv3 ph2 ba b--silver br2 z-1 expand-[noteExpand] [bgColor]">
+                <div class="note-content relative pv3 ph2 ba b--silver br2 [bgColor]">
                     
                     <h4 property="noteTitle" class="ma0 mb2">Title</h4>
                     <label for="note-expand-[$index]" class="note-expand-label db absolute top-0 right-0 pa1 ph2 pointer">Expand</label>
@@ -343,7 +349,7 @@
                         <div class="listItem" property="listItem" mv-multiple class="listItem" style="padding: 2px 0;">
                             <div class="listItem-wrapper cf">
                                 <input property="itemDone" type="checkbox" class="dib v-top relative" style="top: 3px" />
-                                <div property="itemTitle" class="itemTitle tinymce dib ml1" style="width: calc(100% - 25px)">Add note here</div>
+                                <div property="itemTitle" class="itemTitle tinymce dib" style="width: calc(100% - 22px)">Add note here</div>
                             </div>
                         </div>
                     </div>
@@ -361,7 +367,7 @@
                                 Background
                             </label>
                             <input type="hidden" property="bgColor">
-                            <div class="note-dropdown-background-container tint-bg absolute nl2 ml0 dn pa2 left-0" style="width: inherit;">
+                            <div class="note-dropdown-background-container tint-bg absolute z-4 nl2 ml0 dn pa2 left-0" style="width: inherit;">
                                 <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-black')">cbg-black</button>
                                 <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-red')">cbg-red</button>
                                 <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-orange')">cbg-orange</button>
@@ -380,7 +386,7 @@
                             <label role="button" for="note-dropdown-options-[$index]" tabindex="0" class="note-dropdown-options-label pointer ml2">
                                 Options
                             </label>
-                            <div class="note-dropdown-options-container tl tint-bg absolute nl2 ml0 dn pa2 left-0" style="width: inherit;">
+                            <div class="note-dropdown-options-container tl tint-bg absolute z-4 nl2 ml0 dn pa2 left-0" style="width: inherit;">
                                 <input class="dn" type="checkbox" property="showCheckboxes" checked="false" />
                                 <button class="button-link w-100 tl white" mv-if="showCheckboxes = false" mv-action="delete(listItem), set(listItem, noteBody.split('\n')), set(showCheckboxes, !showCheckboxes)">Show checkboxes</button>
                                 <button class="button-link w-100 tl white" mv-if="showCheckboxes = true" mv-action="log(itemTitle.join('\n')), set(noteBody, itemTitle.join('\n')), set(showCheckboxes, !showCheckboxes)">Hide checkboxes</button>
