@@ -1,0 +1,67 @@
+/* General styles */
+.tint-bg {
+    background-color: rgba(10, 10, 10, 0.7);
+}
+.transition-300 {
+    transition: all 300ms ease-in-out;
+}
+.transition-transform {
+    transition: transform 300ms ease-in-out;
+}
+/* Remove button styling */
+.button-link {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    margin: 2px 0;
+    padding: 2px 0;
+    cursor: pointer;
+}
+
+/* Color styles */
+.cbg-black {
+    background-color: #202125;
+    color: white;
+}
+.cbg-red {
+    background-color: #5c2b27;
+    color: white;
+}
+.cbg-orange {
+    background-color: #614a18;
+    color: white;
+}
+.cbg-yellow {
+    background-color: #635d18;
+    color: white;
+}
+.cbg-green {
+    background-color: #345921;
+    color: white;
+}
+.cbg-teal {
+    background-color: #16504c;
+    color: white;
+}
+.cbg-blue {
+    background-color: #2d555f;
+    color: white;
+}
+.cbg-dark-blue {
+    background-color: #1e3a5c;
+    color: white;
+}
+.cbg-purple {
+    background-color: #42275c;
+    color: white;
+}
+.cbg-pink {
+    background-color: #5b2242;
+    color: white;
+}
+.cbg-gray {
+    background-color: #3c3f42;
+    color: white;
+}
+
+

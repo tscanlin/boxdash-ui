@@ -1,343 +1,58 @@
 <!DOCTYPE html>
 <html lang="en" data-files="Marker-Felt.woff img/wood.png">
 <head>
-
-<meta charset="UTF-8">
-<title>Boxdash</title>
-<link rel="stylesheet" href="https://get.mavo.io/mavo.css" />
-<link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
-<script src="https://get.mavo.io/mavo.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
-
-<style>
-    /* General styles */
-    .tint-bg {
-        background-color: rgba(10, 10, 10, 0.7);
-    }
-    .transition-300 {
-        transition: all 300ms ease-in-out;
-    }
-    /* Remove button styling */
-    .button-link {
-        appearance: none;
-        background: transparent;
-        border: 0;
-        margin: 2px 0;
-        padding: 2px 0;
-        cursor: pointer;
-    }
-
-    /* Color styles */
-    .cbg-black {
-        background-color: #202125;
-        color: white;
-    }
-    .cbg-red {
-        background-color: #5c2b27;
-        color: white;
-    }
-    .cbg-orange {
-        background-color: #614a18;
-        color: white;
-    }
-    .cbg-yellow {
-        background-color: #635d18;
-        color: white;
-    }
-    .cbg-green {
-        background-color: #345921;
-        color: white;
-    }
-    .cbg-teal {
-        background-color: #16504c;
-        color: white;
-    }
-    .cbg-blue {
-        background-color: #2d555f;
-        color: white;
-    }
-    .cbg-dark-blue {
-        background-color: #1e3a5c;
-        color: white;
-    }
-    .cbg-purple {
-        background-color: #42275c;
-        color: white;
-    }
-    .cbg-pink {
-        background-color: #5b2242;
-        color: white;
-    }
-    .cbg-gray {
-        background-color: #3c3f42;
-        color: white;
-    }
-
-    /* Layout styles */
-    .notes-wrapper {
-        display: flex;
-        flex-flow: column wrap;
-        align-content: space-between;
-        /* Your container needs a fixed height, and it 
-        * needs to be taller than your tallest column. */
-        height: 960px;
-        counter-reset: items;
-    }
-    .mv-bar.mv-ui {
-        top: 0;
-        border-radius: 0;
-    }
-    .mv-bar.mv-ui:not(.mv-fixed) {
-        border-radius: 0;
-        /* margi */
-    }
-
-    /* Note styles */
-    .note-container {  
-        width: 48.5%;
-        /* Optional */
-        position: relative;
-        box-sizing: border-box;
-        flex-grow: 0;
-        flex-shrink: 0;
-        /* flex-basis: 25%; */
-    }
-    .mce-tinymce.mce-container {
-        display: none;
-    }
-    .listItem .tinymce p {
-        margin: 0;
-    }
-    
-    /* Just to print out numbers */
-    div.note-container::before {        
-        counter-increment: items;
-        content: counter(items);
-        font-size: 0.5em;
-        position: absolute;
-        right: 0;
-        top: 0;
-        padding: 2px;
-        opacity: 0.3;
-    }
-
-    /* Fancy flex column stuff */
-    .note-container:nth-child(2n+1) { order: 1; }
-    .note-container:nth-child(2n)   { order: 2; }
-    @media (min-width: 900px) {
-        .note-container:nth-child(4n+1) { order: 1; }
-        .note-container:nth-child(4n+2) { order: 2; }
-        .note-container:nth-child(4n+3) { order: 3; }
-        .note-container:nth-child(4n)   { order: 4; }
-
-        .note-container {  
-            width: 24%; 
-        }
-    }
-    /* Force new columns */
-    .break.note-container {
-        flex-basis: 100%;
-        width: 0;
-        margin: 0;
-        content: "";
-        padding: 0;
-    }
-
-    /* Note expanding */
-    .note-expand-checkbox:checked ~ .note-content {
-        width: 80%;
-        height: 80%;
-        /* transform: translate(calc(40vw - 20rem),0px); */
-        /* transform: translate(, 0, 0); */
-        position: fixed;
-        top: 3em;
-        left: 10%;
-        z-index: 2;
-    }
-    /* Truncate the title so the list doesn't get too long */
-    .note-expand-checkbox:not(:checked) ~ .note-content .itemTitle {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;  
-        overflow: hidden;
-        float: right;
-    }
-    /* Hide extra items so the list doesn't get too long */
-    .note-expand-checkbox:not(:checked) ~ .note-content .listItem:nth-child(n + 4) {
-        display: none !important;
-    }
-    .note-expand-checkbox:checked {
-        display: block !important;
-        opacity: 0;
-    }
-    .note-expand-checkbox:checked::after {
-        display: block !important;
-        position: fixed;
-        top: 0;
-        left: 0;
-        content: '';
-        width: 100vw;
-        height: 100vh;
-    }
-    .note-expand-checkbox:checked ~ .mv-item-bar {
-        display: none;
-    }
-    .note-expand-checkbox:checked ~ .note-content {
-        z-index: 2;
-    }
-
-    /* Note dropdown styles */
-    .note-dropdown-background-checkbox:checked ~ .note-dropdown-background-container {
-        display: block !important;
-    }
-    /* backdrop to click out of dropdown */
-    .note-dropdown-background-checkbox:checked ~ .note-dropdown-background-label::after {
-        display: block !important;
-        position: fixed;
-        top: 0;
-        left: 0;
-        content: '';
-        width: 100vw;
-        height: 100vh;
-    }
-
-    .note-dropdown-options-checkbox:checked ~ .note-dropdown-options-container {
-        display: block !important;
-    }
-    /* backdrop to click out of dropdown */
-    .note-dropdown-options-checkbox:checked ~ .note-dropdown-options-label::after {
-        display: block !important;
-        position: fixed;
-        top: 0;
-        left: 0;
-        content: '';
-        width: 100vh;
-        height: 100vh;
-    }
-    
-    /* Loading styles */
-    [mv-app][mv-progress="Saving"] {
-        /* opacity: 0; */
-    }
-    [mv-app][mv-progress="Saving"] .mv-bar.mv-ui .mv-save::before {
-        opacity: .1;
-    }
-    [mv-app][mv-progress="Saving"] .mv-bar.mv-ui .mv-save::after {
-        /* content: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20viewBox%3D%220%200%20300%20100%22%3E%3Cstyle%3E%40keyframes%20grow%20{	33.3%25%20{stroke-width%3A%2050px}	from%2C%2066.6%25%2C%20to%20{%20stroke-width%3A%200}}circle%20{	animation%3A%20grow%20.6s%20infinite%20both%3B	fill%3A%20white%3B	stroke%3A%20white%3B}%3C%2Fstyle%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2222%22%20%2F%3E%3Ccircle%20cx%3D%22150%22%20cy%3D%2250%22%20r%3D%2222%22%20style%3D%22animation-delay%3A%20.2s%22%20%2F%3E%3Ccircle%20cx%3D%22250%22%20cy%3D%2250%22%20r%3D%2222%22%20style%3D%22animation-delay%3A%20.4s%22%20%2F%3E%3C%2Fsvg%3E"); */
-        /* content: 'hello' !important; */
-        position: absolute;
-        top: .5em;
-        right: .5em;
-        bottom: .5em;
-        left: .5em;
-    }
-    [mv-progress]::after {
-        /* Reset loading styles */
-        background-image: none;
-        background-color: red;
-        content: '';
-        backdrop-filter: none;
-        position: absolute;
-        transform: none;
-        top: 0;
-        left: 0;
-        bottom: auto;
-        width: 100%;
-        height: 1px !important;
-        line-height: 0;
-        padding-top: 0 !important;
-        padding: 0 !important;
-        margin: 0;
-        border: 0;
-        border-radius: 0;
-    }
-
-    /* Misc styles */
-    .notes-wrapper .mv-ui.mv-add {
-        background-color: rgba(0, 0, 0, 0.2);
-        /* background-color: rgba(251, 253, 255, 0.3); */
-        border-width: 1px;
-        border-color: inherit;
-        border-style: solid;
-        border-radius:  2px;
-        padding: 2px 8px;
-        margin-top: 8px;
-        color: inherit;
-    }
-    /* Hide add note button since it cannot be styled easily */
-    .mv-ui.mv-add.mv-add-notes {
-        display: none;
-    }
-    /* .line-clamp {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;  
-        overflow: hidden;
-    } */
-
-    /* Custom buttons for list */
-    .listItem-wrapper {
-        width: 100%;
-        width: calc(100% - 3.2em);
-        margin: auto;
-    }
-    .mv-item-bar.mv-ui[mv-rel="listItem"] {
-        width: 100%;
-        top: -1px;
-    }
-    .mv-item-bar.mv-ui[mv-rel="listItem"] button {
-        padding: .1em .2em;
-        min-width: 1em;
-        min-height: 1em;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        font-size: 100%;
-        background: none;
-        border-radius: 0;
-        border: 0;
-    }
-    .mv-item-bar.mv-ui button:not(:hover):not(:focus) {
-        /* box-shadow: none; */
-    }
-    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-add {
-        display: none;
-    }
-    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-drag-handle {
-        left: 0;
-        position: absolute;
-        color: inherit
-    }
-    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-drag-handle::before {
-        color: inherit;
-        transform: scale(1.1) translate(-50%, -56%) scaleY(2);
-        position: absolute;
-        top: 50%;
-        left: 50%;
-    }
-    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-delete {
-        right: 0;
-        position: absolute;
-    }
-    .mv-item-bar.mv-ui[mv-rel="listItem"][hidden] {
-        opacity: 1;
-        pointer-events: initial;
-    }
-    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-drag-handle:hover,
-    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-drag-handle:focus {
-        background: transparent;
-    }
-    
-</style>
+    <meta charset="UTF-8">
+    <title>Boxdash</title>
+    <link rel="stylesheet" href="https://get.mavo.io/mavo.css" />
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+    <script src="https://get.mavo.io/mavo.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <link rel="stylesheet" href="assets/css/extra.css" />
 </head>
 <body class="sans-serif" style="background-color: #EEE">
 
     <div mv-app="todo" mv-storage="https://github.com/tscanlin/boxdash-data" mv-mode="edit">
+        <div class="mv-bar mv-ui">
+            <button>Git-keep</button>
+            <button class="ui-settings" style="order:9">
+                <!-- <span style="transform:scale(1.1); opacity: 0.5; vertical-align: .1em; margin-right: .3em;">⚙</span> -->
+                Settings
+            </button>
+
+        </div>
+
         <header>
-            <h1>Git-Keep</h1>
             <p><strong>[count(itemDone)]</strong> done out of <strong>[count(listItem)]</strong> total</p>
+
+            <!-- Settings -->
+            <meta property="showSettings" mv-mode="none" /> 
+            <button mv-action="set(showSettings, !showSettings)">Settings</button>
+            <div class="note-dropdown-background-container tint-bg absolute z-4 nl2 ml0 dn pa2 left-0 [if(showSettings = true, 'db', 'dn')]" style="width: inherit;">
+                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-black')">cbg-black</button>
+                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-red')">cbg-red</button>
+                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-orange')">cbg-orange</button>
+                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-yellow')">cbg-yellow</button>
+                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-green')">cbg-green</button>
+                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-teal')">cbg-teal</button>
+                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-blue')">cbg-blue</button>
+                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-dark-blue')">cbg-dark-blue</button>
+                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-purple')">cbg-purple</button>
+                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-pink')">cbg-pink</button>
+                <button class="button-link w-100 tl white" mv-action="set(bgColor, 'cbg-gray')">cbg-gray</button>
+                <!-- <button class="button-link white" data-value="#442f14">cbg-brown</button> -->
+            </div>
         </header>
 
+        <div>
+            <input type="text" property="searchText" mv-storage="none" />
+            <button mv-action="log($this), log(filter(notes, contains(listItem.itemTitle, searchText)))">go</button>
+        </div>
+
         <div class="notes-wrapper ml1" style="min-height: 800px;">
-            <div class="note-container dib v-top mr2 mb2" property="notes" mv-multiple>
+            <div class="note-container v-top mr2 mb2 [if(!searchText or contains(noteTitle, searchText) or contains(join(listItem.itemTitle) or contains(noteBody, searchText), 'dib', 'dn')]" property="notes" mv-multiple>
+                <!-- <meta  property="filtered" mv-mode="none" content="[]" /> -->
                 <input id="note-expand-[$index]" class="note-expand-checkbox dn" type="checkbox" />
                 
                 <div class="note-content relative pv3 ph2 ba b--silver br2 [bgColor]">

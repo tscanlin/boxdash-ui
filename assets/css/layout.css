@@ -1,0 +1,178 @@
+/* Layout styles */
+.notes-wrapper {
+    display: flex;
+    flex-flow: column wrap;
+    align-content: space-between;
+    /* Your container needs a fixed height, and it 
+    * needs to be taller than your tallest column. */
+    height: 960px;
+    counter-reset: items;
+}
+.mv-bar.mv-ui {
+    top: 0;
+    border-radius: 0;
+}
+.mv-bar.mv-ui:not(.mv-fixed) {
+    border-radius: 0;
+    /* margi */
+}
+
+/* Note styles */
+.note-container {  
+    width: 48.5%;
+    /* Optional */
+    position: relative;
+    box-sizing: border-box;
+    flex-grow: 0;
+    flex-shrink: 0;
+    /* flex-basis: 25%; */
+}
+.mce-tinymce.mce-container {
+    display: none;
+}
+.listItem .tinymce p {
+    margin: 0;
+}
+
+/* Just to print out numbers */
+div.note-container::before {        
+    counter-increment: items;
+    content: counter(items);
+    font-size: 0.5em;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 2px;
+    opacity: 0.3;
+}
+
+/* Fancy flex column stuff */
+.note-container:nth-child(2n+1) { order: 1; }
+.note-container:nth-child(2n)   { order: 2; }
+@media (min-width: 900px) {
+    .note-container:nth-child(4n+1) { order: 1; }
+    .note-container:nth-child(4n+2) { order: 2; }
+    .note-container:nth-child(4n+3) { order: 3; }
+    .note-container:nth-child(4n)   { order: 4; }
+
+    .note-container {  
+        width: 24%; 
+    }
+}
+/* Force new columns */
+.break.note-container {
+    flex-basis: 100%;
+    width: 0;
+    margin: 0;
+    content: "";
+    padding: 0;
+}
+
+/* Note expanding */
+.note-expand-checkbox:checked ~ .note-content {
+    width: 80%;
+    height: 80%;
+    /* transform: translate(calc(40vw - 20rem),0px); */
+    /* transform: translate(, 0, 0); */
+    position: fixed;
+    top: 3em;
+    left: 10%;
+    z-index: 11;
+}
+/* Truncate the title so the list doesn't get too long */
+.note-expand-checkbox:not(:checked) ~ .note-content .itemTitle {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    float: right;
+}
+/* Hide extra items so the list doesn't get too long */
+.note-expand-checkbox:not(:checked) ~ .note-content .listItem:nth-child(n + 4) {
+    display: none !important;
+}
+.note-expand-checkbox:checked {
+    display: block !important;
+    opacity: 0;
+}
+.note-expand-checkbox:checked::after {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 100vw;
+    height: 100vh;
+}
+.note-expand-checkbox:checked ~ .mv-item-bar {
+    display: none;
+}
+.note-expand-checkbox:checked ~ .note-content {
+    /* z-index: 11; */
+}
+
+/* Note dropdown styles */
+.note-dropdown-background-checkbox:checked ~ .note-dropdown-background-container {
+    display: block !important;
+}
+/* backdrop to click out of dropdown */
+.note-dropdown-background-checkbox:checked ~ .note-dropdown-background-label::after {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 100vw;
+    height: 100vh;
+}
+
+.note-dropdown-options-checkbox:checked ~ .note-dropdown-options-container {
+    display: block !important;
+}
+/* backdrop to click out of dropdown */
+.note-dropdown-options-checkbox:checked ~ .note-dropdown-options-label::after {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 100vh;
+    height: 100vh;
+}
+
+/* Loading styles */
+[mv-app][mv-progress="Saving"] {
+    /* opacity: 0; */
+}
+[mv-app][mv-progress="Saving"] .mv-bar.mv-ui .mv-save::before {
+    opacity: .1;
+}
+[mv-app][mv-progress="Saving"] .mv-bar.mv-ui .mv-save::after {
+    /* content: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20viewBox%3D%220%200%20300%20100%22%3E%3Cstyle%3E%40keyframes%20grow%20{	33.3%25%20{stroke-width%3A%2050px}	from%2C%2066.6%25%2C%20to%20{%20stroke-width%3A%200}}circle%20{	animation%3A%20grow%20.6s%20infinite%20both%3B	fill%3A%20white%3B	stroke%3A%20white%3B}%3C%2Fstyle%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2222%22%20%2F%3E%3Ccircle%20cx%3D%22150%22%20cy%3D%2250%22%20r%3D%2222%22%20style%3D%22animation-delay%3A%20.2s%22%20%2F%3E%3Ccircle%20cx%3D%22250%22%20cy%3D%2250%22%20r%3D%2222%22%20style%3D%22animation-delay%3A%20.4s%22%20%2F%3E%3C%2Fsvg%3E"); */
+    /* content: 'hello' !important; */
+    position: absolute;
+    top: .5em;
+    right: .5em;
+    bottom: .5em;
+    left: .5em;
+}
+[mv-progress]::after {
+    /* Reset loading styles */
+    background-image: none;
+    background-color: red;
+    content: '';
+    backdrop-filter: none;
+    position: absolute;
+    transform: none;
+    top: 0;
+    left: 0;
+    bottom: auto;
+    width: 100%;
+    height: 1px !important;
+    line-height: 0;
+    padding-top: 0 !important;
+    padding: 0 !important;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+}

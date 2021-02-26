@@ -1,0 +1,91 @@
+
+    
+
+    /* Misc styles */
+    .notes-wrapper .mv-ui.mv-add {
+        background-color: rgba(0, 0, 0, 0.2);
+        /* background-color: rgba(251, 253, 255, 0.3); */
+        border-width: 1px;
+        border-color: inherit;
+        border-style: solid;
+        border-radius:  2px;
+        padding: 2px 8px;
+        margin-top: 8px;
+        color: inherit;
+    }
+    /* Hide add note button since it cannot be styled easily */
+    .mv-ui.mv-add.mv-add-notes {
+        display: none;
+    }
+    /* .line-clamp {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+    } */
+
+    /* Custom buttons for list */
+    .listItem-wrapper {
+        width: 100%;
+        width: calc(100% - 3.2em);
+        margin: auto;
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] {
+        width: 100%;
+        top: -1px;
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] button {
+        padding: .1em .2em;
+        min-width: 1em;
+        min-height: 1em;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        font-size: 100%;
+        background: none;
+        border-radius: 0;
+        border: 0;
+    }
+    .mv-item-bar.mv-ui button:not(:hover):not(:focus) {
+        /* box-shadow: none; */
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-add {
+        display: none;
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-drag-handle {
+        left: 0;
+        position: absolute;
+        color: inherit
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-drag-handle::before {
+        color: inherit;
+        transform: scale(1.1) translate(-50%, -56%) scaleY(2);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-delete {
+        right: 0;
+        position: absolute;
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"][hidden] {
+        opacity: 1;
+        pointer-events: initial;
+    }
+    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-drag-handle:hover,
+    .mv-item-bar.mv-ui[mv-rel="listItem"] .mv-drag-handle:focus {
+        background: transparent;
+    }
+
+    /* Mv-bar customizations */
+    .mv-bar.mv-ui .mv-status {
+        font-size: 0.75em;
+    }
+    .mv-bar.mv-ui > button::before, .mv-bar.mv-ui > .mv-button::before {
+        vertical-align: 0em;
+    }
+    .mv-bar.mv-ui .mv-logout::before {
+        position: relative;
+        top: 2px;
+    }
+    .mv-bar.mv-ui .ui-settings::before {
+        content: "⚙";
+    }
