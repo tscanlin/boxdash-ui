@@ -2,6 +2,14 @@
 
 This project aims to build basic note dashboard functionality similar to GoogleKeep.
 
+## Getting started
+
+Run with:
+```
+python3 -m http.server
+```
+
+
 ## Features
 [x] responsive
 [x] background coloring
